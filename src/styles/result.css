@@ -1,0 +1,17 @@
+.result-box {
+  padding: 20px;
+  background: #eefcf1;
+  border-left: 4px solid #1ebc73;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.result-box h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.result-box p {
+  font-size: 16px;
+  color: #555;
+}
