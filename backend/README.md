@@ -2,24 +2,34 @@
 
 1. **Create virtual environment**
 
-```bash
-py -m venv venv
-```
+   ```bash
+   py -m venv venv
+   ```
 
 2. **Activate the virtual environment**
 
-```bash
-venv\Scripts\activate
-```
+   ```bash
+   venv\Scripts\activate
+   ```
 
-3. **Install dependencies**
+3. **Create a `.env` file**
 
-```bash
-pip install -r requirements.txt
-```
+   - In your project root, create a file named `.env`
+   - Add any required environment variables, for example:
 
-4. **Run the server**
+     ```env
+     OPENAI_API_KEY=your_api_key_here
+     OTHER_VARIABLE=value
+     ```
 
-```bash
-uvicorn main:app --port 3002
-```
+4. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+5. **Run the server**
+
+   ```bash
+   uvicorn main:app --port 3002
+   ```
