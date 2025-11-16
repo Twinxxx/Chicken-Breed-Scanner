@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import '../styles/uploader.css';
-import uploadLogo from '../assets/uploadLogo.png';
+import React, { useRef, useState } from "react";
+import "../styles/uploader.css";
+import uploadLogo from "../assets/uploadLogo.png";
 
 const ImageUploader = ({ onImageSelect }) => {
   const fileInput = useRef();
@@ -23,28 +23,23 @@ const ImageUploader = ({ onImageSelect }) => {
 
   return (
     <div className="uploader-box">
-        {/* Uploader box will only show if you doesn't have image upload yet */}
+      {/* Uploader box will only show if you doesn't have image upload yet */}
       {!preview ? (
         <div className="upload-area" onClick={() => fileInput.current.click()}>
           <img src={uploadLogo} alt="Upload Icon" width="50" />
           <p>Click to Upload Chicken Image</p>
         </div>
       ) : (
-
-<div className="preview-wrapper">
-          <button className="remove-btn" onClick={removeImage}>×</button>
+        <div className="preview-wrapper">
+          <button className="remove-btn" onClick={removeImage}>
+            ×
+          </button>
           <img src={preview} alt="Preview" className="preview-image" />
         </div>
       )}
 
       {/* Hidden File Input */}
-      <input
-        type="file"
-        accept="image/*"
-        ref={fileInput}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
+      <input type="file" accept="image/*" ref={fileInput} style={{ display: "none" }} onChange={handleFileChange} />
     </div>
   );
 };

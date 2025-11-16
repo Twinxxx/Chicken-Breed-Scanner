@@ -24,7 +24,7 @@ def read_photo(img_bytes: bytes, mime_type: str):
             
             contents=[image_part, prompt],
         )
-
+        
         return response.text
 
     except Exception as e:
