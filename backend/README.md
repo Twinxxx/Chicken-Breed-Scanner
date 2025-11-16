@@ -23,5 +23,3 @@ pip install -r requirements.txt
 ```bash
 uvicorn main:app --port 3002
 ```
-
----
