@@ -22,7 +22,7 @@ const Home = () => {
     }
 
     try {
-      const res = await fetch("https://c84cb90be252.ngrok-free.app/analyze-image", {
+      const res = await fetch("http://127.0.0.1:3002/analyze-image", {
         method: "POST",
         body: formData,
       });
