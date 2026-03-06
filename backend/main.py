@@ -1,12 +1,11 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from google import genai
 from PIL import Image
 import io 
-import os 
-from dotenv import load_dotenv
 from image_analyzer import read_photo
-load_dotenv()
+import uvicorn
+import os
+
 
 app = FastAPI()
 
@@ -25,19 +24,29 @@ app.add_middleware(
 )
 
 
+ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".heic", ".heif", ".webp", ".bmp"}
+
 @app.post("/analyze-image")
 async def analyze_image(file: UploadFile = File(...)):
+    print(f"Content type: {file.content_type}")
+    print(f"Filename: {file.filename}")
 
-    if not file.content_type.startswith("image/"):
+    ext = os.path.splitext(file.filename or "")[1].lower()
+    is_image = file.content_type.startswith("image/") or ext in ALLOWED_EXTENSIONS
+
+    if not is_image:
         return {"error": "File must be an image"}
 
     img_bytes = await file.read()
 
     try:
         Image.open(io.BytesIO(img_bytes))
-    except Exception:
+    except Exception as e:
+        print(f"Image open failed: {e}")
         return {"error": "Invalid image format"}
 
     response = read_photo(img_bytes, file.content_type)
-
-    return {"breed": response}
+    return response
+    
+if __name__ == "__main__":
+    uvicorn.run("main:app", port=8000, reload=True)

@@ -22,13 +22,14 @@ const Home = () => {
     }
 
     try {
-      const res = await fetch("http://127.0.0.1:3002/analyze-image", {
+      console.log("Sending request...");
+      const res = await fetch("http://127.0.0.1:8000/analyze-image", {
         method: "POST",
         body: formData,
       });
       const data = await res.json();
-      console.log("Scan Result:", data);
-      setScanResult(data);
+      console.log("Data:", data);
+      setScanResult(data.breed);
     } catch (err) {
       console.error("Scan failed:", err);
     }

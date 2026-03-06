@@ -1,32 +1,27 @@
-from google import genai
-from google.genai.types import Part
-import os
-from dotenv import load_dotenv
-load_dotenv()
+from ultralytics import YOLO
+from PIL import Image
+import io
 
-client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-
-prompt = "Read the image and describe in 1 word"
+model = YOLO("./best.pt")
 
 def read_photo(img_bytes: bytes, mime_type: str):
     try:
-        print("--- Processing Image With Gemini ---")
+        print("Reading photo...")
+        img = Image.open(io.BytesIO(img_bytes))
+        results = model(img)
 
-        # Create image file object for Gemini
-        image_part = Part.from_bytes(
-            data=img_bytes,
-            mime_type=mime_type
-        )
-
-        # Send request to Gemini
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
+        if results and len(results) > 0:
+            result = results[0]
             
-            contents=[image_part, prompt],
-        )
-        
-        return response.text
+            # Classification model uses probs, not boxes
+            if result.probs is not None:
+                class_id = int(result.probs.top1)
+                confidence = float(result.probs.top1conf)
+                class_name = model.names[class_id]
+                return {"breed": class_name, "confidence": round(confidence, 4)}
+
+        return {"breed": "Unknown", "confidence": 0.0}
 
     except Exception as e:
-        print(f"!!! Gemini API ERROR: {e}")
-        raise e
+        print(f"!!! Error: {e}")
+        return {"breed": "Error", "confidence": 0.0}
