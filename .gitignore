@@ -26,3 +26,5 @@ yarn-error.log*
 venv/
 pycache/
 dataset/
+resnet50_best.pt
+vit_best.pt
