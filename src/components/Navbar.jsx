@@ -1,14 +1,14 @@
 import React from 'react';
 import '../styles/navbar.css';
-import logo from '../assets/logo.png'; // path to logo image
+import LogoNav from '../assets/LogoNav.png'
 
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <img src={logo} alt="Logo" className="navbar-logo" />
+      <img src={LogoNav} alt="LogoNav" className="navbar-logo" style={{}}/>
       <ul className="navbar-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#developer">Developer</a></li>
+        <li><a href="#home">Chicken Breed Scanner</a></li>
+        {/* <li><a href="#developer">Developer</a></li> */}
       </ul>
     </nav>
   );
