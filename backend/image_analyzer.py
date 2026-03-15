@@ -27,7 +27,6 @@ def read_photo(img_bytes: bytes, mime_type: str):
                         "rank": i + 1
                     })
                 
-                print(f"Returning top_results: {top_results}")
                 return {"top_results": top_results}
 
         return {"breed": "Unknown", "confidence": 0.0}

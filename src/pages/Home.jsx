@@ -46,9 +46,6 @@ const Home = () => {
       if (remaining > 0) {
         await new Promise((resolve) => setTimeout(resolve, remaining));
       }
-      console.log("check_data", data);
-      console.log("data.top_results:", data.top_results);
-      console.log("data type:", typeof data);
       setScanResult(data);
     } catch (err) {
       console.error("Scan failed:", err);
