@@ -13,14 +13,29 @@
    ```
 
 3. **Create a `.env` file**
+   - Copy `.env.example` to `.env` and configure your environment:
 
-   - In your project root, create a file named `.env`
-   - Add any required environment variables, for example:
+   ```bash
+   copy .env.example .env
+   ```
 
-     ```env
-     OPENAI_API_KEY=your_api_key_here
-     OTHER_VARIABLE=value
-     ```
+   - Edit `.env` with your settings:
+
+   **Development:**
+
+   ```env
+   ENV=development
+   DEV_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+   PROD_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+   ```
+
+   **Production:**
+
+   ```env
+   ENV=production
+   DEV_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+   PROD_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+   ```
 
 4. **Install dependencies**
 

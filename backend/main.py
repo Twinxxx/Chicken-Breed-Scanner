@@ -5,15 +5,13 @@ import io
 from image_analyzer import read_photo
 import uvicorn
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 app = FastAPI()
 
-
-origins = [
-    "http://localhost:3000",  # if your frontend runs on this port
-    "http://127.0.0.1:3000",  # alternative localhost
-]
+origins = os.getenv("DEV_ORIGINS")
 
 app.add_middleware(
     CORSMiddleware,
@@ -46,6 +44,7 @@ async def analyze_image(file: UploadFile = File(...)):
         return {"error": "Invalid image format"}
 
     response = read_photo(img_bytes, file.content_type)
+    print(f"Analyzer response: {response}")
     return response
     
 if __name__ == "__main__":

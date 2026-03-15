@@ -27,10 +27,11 @@ def read_photo(img_bytes: bytes, mime_type: str):
                         "rank": i + 1
                     })
                 
+                print(f"Returning top_results: {top_results}")
                 return {"top_results": top_results}
 
         return {"breed": "Unknown", "confidence": 0.0}
 
     except Exception as e:
         print(f"!!! Error: {e}")
-        return {"breed": "Error", "confidence": 0.0}
+        return {"error": str(e), "breed": "Error", "confidence": 0.0}
