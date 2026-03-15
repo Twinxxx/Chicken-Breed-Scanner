@@ -44,7 +44,6 @@ async def analyze_image(file: UploadFile = File(...)):
         return {"error": "Invalid image format"}
 
     response = read_photo(img_bytes, file.content_type)
-    print(f"Analyzer response: {response}")
     return response
     
 if __name__ == "__main__":
