@@ -26,9 +26,6 @@ ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".heic", ".heif", ".webp", ".bmp"
 
 @app.post("/analyze-image")
 async def analyze_image(file: UploadFile = File(...)):
-    print(f"Content type: {file.content_type}")
-    print(f"Filename: {file.filename}")
-
     ext = os.path.splitext(file.filename or "")[1].lower()
     is_image = file.content_type.startswith("image/") or ext in ALLOWED_EXTENSIONS
 
