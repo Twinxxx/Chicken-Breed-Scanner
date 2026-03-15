@@ -13,12 +13,21 @@ def read_photo(img_bytes: bytes, mime_type: str):
         if results and len(results) > 0:
             result = results[0]
             
-            # Classification model uses probs, not boxes
             if result.probs is not None:
-                class_id = int(result.probs.top1)
-                confidence = float(result.probs.top1conf)
-                class_name = model.names[class_id]
-                return {"breed": class_name, "confidence": round(confidence, 4)}
+                # Get top 3 results
+                top3_indices = result.probs.top5[:3]
+                top3_confs = result.probs.top5conf[:3]
+                
+                top_results = []
+                for i, (idx, conf) in enumerate(zip(top3_indices, top3_confs)):
+                    class_name = model.names[int(idx)]
+                    top_results.append({
+                        "breed": class_name,
+                        "confidence": round(float(conf), 4),
+                        "rank": i + 1
+                    })
+                
+                return {"top_results": top_results}
 
         return {"breed": "Unknown", "confidence": 0.0}
 

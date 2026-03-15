@@ -10,6 +10,7 @@ const Home = () => {
   const [scanResult, setScanResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const handleScanClick = async (file) => {
     if (!file) return;
@@ -32,7 +33,7 @@ const Home = () => {
 
       const startTime = Date.now();
 
-      const res = await fetch("http://127.0.0.1:3002/analyze-image", {
+      const res = await fetch(`${API_URL}/analyze-image`, {
         method: "POST",
         body: formData,
       });
@@ -45,7 +46,7 @@ const Home = () => {
       if (remaining > 0) {
         await new Promise((resolve) => setTimeout(resolve, remaining));
       }
-      console.log('check_data', data)
+      console.log("check_data", data);
       setScanResult(data);
     } catch (err) {
       console.error("Scan failed:", err);
@@ -60,16 +61,9 @@ const Home = () => {
 
       <div className={`home-container ${showModal ? "blur-background" : ""}`}>
         <div className="left-section">
-          <ImageUploader
-            onImageSelect={setUploadedImage}
-            uploadedImage={uploadedImage}
-          />
+          <ImageUploader onImageSelect={setUploadedImage} uploadedImage={uploadedImage} />
 
-          <button
-            className="scan-btn"
-            disabled={!uploadedImage}
-            onClick={() => handleScanClick(uploadedImage)}
-          >
+          <button className="scan-btn" disabled={!uploadedImage} onClick={() => handleScanClick(uploadedImage)}>
             Scan Chicken
           </button>
         </div>
@@ -81,11 +75,7 @@ const Home = () => {
 
       {showModal && (
         <div className="modal-overlay">
-          <ScanResult
-            result={scanResult}
-            loading={loading}
-            closeModal={() => setShowModal(false)}
-          />
+          <ScanResult result={scanResult} loading={loading} closeModal={() => setShowModal(false)} />
         </div>
       )}
     </div>
